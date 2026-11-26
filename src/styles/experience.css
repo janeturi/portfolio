@@ -1,0 +1,7 @@
+#experience { padding: 4rem 0; }
+.projects-grid.experience-grid { grid-template-columns: repeat(2, 1fr); }
+.experience-grid .project-more { padding-left: 1.1rem; }
+
+@media (max-width: 700px) {
+  .projects-grid.experience-grid { grid-template-columns: 1fr; }
+}

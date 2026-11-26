@@ -1,0 +1,23 @@
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: flex-end;
+  gap: clamp(18px, 4vw, 56px);
+  padding: 22px var(--edge) 12px;
+  font-size: 12px;
+  background: linear-gradient(var(--paper) 70%, transparent);
+}
+
+nav a {
+  color: #000;
+  text-decoration: none;
+  padding: 2px 0;
+  border-bottom: 2px solid transparent;
+}
+
+nav a:hover,
+nav a.active {
+  border-bottom-color: #000;
+}

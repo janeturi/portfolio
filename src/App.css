@@ -1,0 +1,94 @@
+:root {
+  --paper: #fefefe;
+  --line: #d4d4d4;
+  --row: 31px;
+  --edge: clamp(20px, 7vw, 110px);
+}
+
+* { box-sizing: border-box; margin: 0; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 70px;
+}
+
+body {
+  background: var(--paper);
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0 calc(var(--row) - 1px),
+    var(--line) calc(var(--row) - 1px) var(--row)
+  );
+  background-size: calc(100% - 2 * var(--edge)) 100%;
+  background-position: center top;
+  background-repeat: no-repeat;
+}
+
+.reveal { opacity: 0; }
+.reveal.in { opacity: 1; animation: pop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) calc(var(--i, 0) * 90ms) backwards; }
+@keyframes pop {
+  from { opacity: 0; transform: translateY(24px) rotate(-3deg) scale(0.95); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .reveal.in { opacity: 1; animation: none; }
+}
+
+section { position: relative; }
+
+.doodle {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0;
+  transform: rotate(var(--rot, 0deg));
+}
+.doodle.in {
+  opacity: 1;
+  animation: scribble 8s infinite backwards;
+  animation-delay: var(--d, 0s);
+}
+@keyframes scribble {
+  0%   { clip-path: inset(0 100% 0 0); opacity: 1; animation-timing-function: steps(10); }
+  12%  { clip-path: inset(0 0 0 0); opacity: 1; animation-timing-function: ease-in-out; }
+  70%  { clip-path: inset(0 0 0 0); opacity: 1; }
+  90%  { clip-path: inset(0 0 0 0); opacity: 0; }
+  100% { clip-path: inset(0 100% 0 0); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .doodle.in { animation: none; }
+}
+
+.title {
+  display: inline-block;
+  background: linear-gradient(transparent 55%, rgba(173, 194, 255, 0.7) 55%) no-repeat left / 0% 100%;
+  transition: background-size 0.8s ease-out 0.2s;
+}
+.title.in { background-size: 100% 100%; }
+@media (prefers-reduced-motion: reduce) {
+  .title { background-size: 100% 100%; transition: none; }
+}
+
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 8px;
+  width: 0;
+  z-index: 1000;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='8'%3E%3Cpath d='M0 4 Q6 0 12 4 T24 4' fill='none' stroke='%231a0dff' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") repeat-x;
+}
+
+nav a { position: relative; }
+nav a.active::after {
+  content: '';
+  position: absolute;
+  inset: -6px -12px;
+  border: 2px solid #1a0dff;
+  border-radius: 50% 45% 55% 40% / 55% 50% 45% 50%;
+  transform: rotate(-2deg);
+  animation: circle 0.4s ease-out;
+  pointer-events: none;
+}
+@keyframes circle {
+  from { opacity: 0; transform: rotate(-2deg) scale(0.6); }
+}
